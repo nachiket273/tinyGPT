@@ -21,7 +21,7 @@ class LayerNorm(nn.Module):
     def forward(self, x):
         u = torch.mean(x, keepdim=True, dim=self.dim)
         s = torch.mean(torch.pow(x-u, 2), keepdim=True, dim=self.dim)
-        din = (x-u) / torch.sqrt(s + self.eps)
+        x = (x-u) / torch.sqrt(s + self.eps)
         if self.bias is not None:
             return x * self.weight + self.bias
         return x * self.weight
